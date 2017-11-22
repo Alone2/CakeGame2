@@ -1,0 +1,7 @@
+main: net.BundR.cake.cake
+version: 0.0.2
+name: CakeGame
+
+commands:
+    cake:
+      description: Starte das Cake-duell!
