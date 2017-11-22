@@ -27,7 +27,7 @@ public class PlayerJoin implements Listener {
 			
 			cfg.set("Player" + String.valueOf(WieViele + 1) + ".UUID", String.valueOf(p.getUniqueId()));
 			cfg.set("Player" + String.valueOf(WieViele + 1) + ".name", String.valueOf(p.getName()));
-			cfg.set("Player" + String.valueOf(WieViele + 1) + ".teamm8", "");
+			cfg.set("Player" + String.valueOf(WieViele + 1) + ".teamm8", "0");
 			cfg2.set("WieViele", WieViele + 1);
 			specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml"); 
 			specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");

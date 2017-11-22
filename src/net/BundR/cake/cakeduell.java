@@ -33,7 +33,7 @@ public class cakeduell {
 		yLoc.setX(100);
 		yLoc.setY(100);
 		yLoc.setZ(100);
-		player.teleport(yLoc, TeleportCause.PLUGIN);
+		//player.teleport(yLoc, TeleportCause.PLUGIN);
 		
 	
 	}

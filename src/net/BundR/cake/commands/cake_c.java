@@ -25,12 +25,14 @@ public class cake_c implements CommandExecutor {
 			return false;
 		}
 
+		int debug = 1;
+		
 		Player player = (Player) sender;
 
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 		String PlayerId = getPlayerConfigId.fromUUID(String.valueOf(player.getUniqueId()));
 
-		if (cfg.getString("Player" + PlayerId + ".teamm8").equals("")) {
+		if (cfg.getString("Player" + PlayerId + ".teamm8").equals("0")) {
 
 			if (args.length == 0) {
 
@@ -100,6 +102,12 @@ public class cake_c implements CommandExecutor {
 					}
 				} else {
 					player.sendMessage(ChatColor.RED + "Fehler: /cake duell [name] <---");
+				}
+				if (debug == 1) {
+					if (args.length == 1 && args[0].equals("debug")) {
+						cakeduell.start(player,PlayerId, player, PlayerId);
+						player.sendMessage("debug");
+					}
 				}
 			}
 		} else {
