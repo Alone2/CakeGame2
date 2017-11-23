@@ -19,21 +19,23 @@ public class cakeduell {
 			wc.environment(Environment.NORMAL);
 			wc.generateStructures(false);
 			wc.type(WorldType.FLAT);
-			Bukkit.broadcastMessage("§cEine neue Welt wird generiert! Vielleicht wird's in der nächsten Zeit laggen!");
+			Bukkit.broadcastMessage("§cEine neue Welt wird generiert! Vielleicht wird's in der nächsten Zeit laggen! (Das passiert nie wieder!)");
 			wc.createWorld();
 			Bukkit.broadcastMessage("§cDie generation der neuen Welt wurde beendet!");
 		}
 		savePlayer.save(cfg, playerID, player);
-		player.teleport(Bukkit.getWorld("cake-duell").getSpawnLocation(), TeleportCause.PLUGIN);
-		
 		savePlayer.save(cfg, playerotherID, playerother);
-		playerother.teleport(Bukkit.getWorld("cake-duell").getSpawnLocation(), TeleportCause.PLUGIN);
 		
-		org.bukkit.Location yLoc = Bukkit.getWorld("world").getSpawnLocation();
-		yLoc.setX(100);
-		yLoc.setY(100);
-		yLoc.setZ(100);
+		player.teleport(Bukkit.getWorld("cake-duell").getSpawnLocation(), TeleportCause.PLUGIN);
+		playerother.teleport(Bukkit.getWorld("cake-duell").getSpawnLocation());
+		
+		
+		
 		//player.teleport(yLoc, TeleportCause.PLUGIN);
+		
+		savePlayer.clear(playerother);
+		
+		savePlayer.setOld(cfg, playerotherID, playerother);
 		
 	
 	}
