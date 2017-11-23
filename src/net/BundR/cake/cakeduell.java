@@ -29,10 +29,6 @@ public class cakeduell {
 		player.teleport(Bukkit.getWorld("cake-duell").getSpawnLocation(), TeleportCause.PLUGIN);
 		playerother.teleport(Bukkit.getWorld("cake-duell").getSpawnLocation());
 		
-		
-		
-		//player.teleport(yLoc, TeleportCause.PLUGIN);
-		
 		savePlayer.clear(playerother);
 		
 		savePlayer.setOld(cfg, playerotherID, playerother);

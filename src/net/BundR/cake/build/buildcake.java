@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
-public class buildcakeduell {
+public class buildcake {
 	public static void build(Location l, int height) {
 		
 		Material B = Material.BARRIER;
@@ -15,11 +15,39 @@ public class buildcakeduell {
 			int Y = l.getBlockY() + i;
 			int Z = l.getBlockZ();
 			
+			if (i == 1) {
+				createBlock(l, X, Y, Z, B);
+				
+				createBlock(l, X + 1, Y, Z - 1, C);
+				createBlock(l, X + 1, Y, Z, C);
+				createBlock(l, X + 1, Y, Z + 1, C);
+				
+				createBlock(l, X - 1, Y, Z - 1, C);
+				createBlock(l, X - 1, Y, Z, C);
+				createBlock(l, X - 1, Y, Z + 1, C);
+				
+				createBlock(l, X, Y, Z - 1, C);
+				createBlock(l, X, Y, Z + 1, C);
+				continue;
+			}
+			
 			createBlock(l, X, Y, Z, C);
 			
 			createBlock(l, X + 2, Y, Z - 1, B);
 			createBlock(l, X + 2, Y, Z, B);
 			createBlock(l, X + 2, Y, Z + 1, B);
+			
+			createBlock(l, X - 1, Y, Z + 2, B);
+			createBlock(l, X, Y, Z + 2, B);
+			createBlock(l, X + 1, Y, Z + 2, B);
+			
+			createBlock(l, X - 2, Y, Z - 1, B);
+			createBlock(l, X - 2, Y, Z, B);
+			createBlock(l, X - 2, Y, Z + 1, B);
+			
+			createBlock(l, X - 1, Y, Z - 2, B);
+			createBlock(l, X, Y, Z + 2, B);
+			createBlock(l, X + 1, Y, Z - 2, B);
 
 		}
 		
