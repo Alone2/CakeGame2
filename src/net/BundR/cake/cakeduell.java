@@ -19,9 +19,9 @@ public class cakeduell {
 			wc.environment(Environment.NORMAL);
 			wc.generateStructures(false);
 			wc.type(WorldType.FLAT);
-			Bukkit.broadcastMessage("Â§cEine neue Welt wird generiert! Vielleicht wird's in der nÃ¤chsten Zeit laggen!");
+			Bukkit.broadcastMessage("§cEine neue Welt wird generiert! Vielleicht wird's in der nächsten Zeit laggen!");
 			wc.createWorld();
-			Bukkit.broadcastMessage("Â§cDie generation der neuen Welt wurde beendet!");
+			Bukkit.broadcastMessage("§cDie generation der neuen Welt wurde beendet!");
 		}
 		savePlayer.save(cfg, playerID, player);
 		player.teleport(Bukkit.getWorld("cake-duell").getSpawnLocation(), TeleportCause.PLUGIN);
