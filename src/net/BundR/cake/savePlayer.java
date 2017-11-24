@@ -77,7 +77,7 @@ public class savePlayer {
 		}
 	}
 	public static void clear(Player player) {
-		player.setGameMode(GameMode.SURVIVAL);
+		player.setGameMode(GameMode.ADVENTURE);
 		player.getInventory().clear();
 		player.getActivePotionEffects().clear();
 		for (PotionEffect potion : player.getActivePotionEffects()) {
