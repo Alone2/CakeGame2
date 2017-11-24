@@ -10,24 +10,26 @@ public class buildcake {
 		
 		Material B = Material.BARRIER;
 		Material C = Material.CAKE_BLOCK;
+		Material R = Material.REDSTONE_BLOCK;
+		Material D = Material.DIAMOND_BLOCK;
 		for (int i = 0; i < height; i++) {
 			int X = l.getBlockX();
 			int Y = l.getBlockY() + i;
 			int Z = l.getBlockZ();
 			
 			if (i == 1) {
-				createBlock(l, X, Y, Z, B);
+				createBlock(l, X, Y, Z, D);
 				
-				createBlock(l, X + 1, Y, Z - 1, C);
-				createBlock(l, X + 1, Y, Z, C);
-				createBlock(l, X + 1, Y, Z + 1, C);
+				createBlock(l, X + 1, Y, Z - 1, R);
+				createBlock(l, X + 1, Y, Z, R);
+				createBlock(l, X + 1, Y, Z + 1, R);
 				
-				createBlock(l, X - 1, Y, Z - 1, C);
-				createBlock(l, X - 1, Y, Z, C);
-				createBlock(l, X - 1, Y, Z + 1, C);
+				createBlock(l, X - 1, Y, Z - 1, R);
+				createBlock(l, X - 1, Y, Z, R);
+				createBlock(l, X - 1, Y, Z + 1, R);
 				
-				createBlock(l, X, Y, Z - 1, C);
-				createBlock(l, X, Y, Z + 1, C);
+				createBlock(l, X, Y, Z - 1, R);
+				createBlock(l, X, Y, Z + 1, R);
 				continue;
 			}
 			
