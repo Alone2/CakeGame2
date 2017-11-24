@@ -40,7 +40,8 @@ public class cakeduell {
 			wc.createWorld();
 			Bukkit.broadcastMessage("§cDie generation der neuen Welt wurde beendet!");
 		}
-		run(player, playerID, cfg);
+		run(player, playerID, cfg, 0);
+		run(playerother, playerotherID, cfg, 5);
 		loop1 = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 			@Override
 			public void run() {
@@ -79,18 +80,19 @@ public class cakeduell {
 		
 	
 	}
-	private static void run(Player player, String playerID, FileConfiguration cfg) {
+	private static void run(Player player, String playerID, FileConfiguration cfg, int addition) {
 		
 		savePlayer.save(cfg, playerID, player);
 		
 		int height = 50;
 		Location loc = Bukkit.getWorld("cake-duell").getSpawnLocation();
+		loc.setZ(loc.getZ() + addition);
 		buildcake.build(loc, height);
 		
 		Location loctp = Bukkit.getWorld("cake-duell").getSpawnLocation();
 		loctp.setY(loctp.getY() + height + 1);
 		loctp.setX(loctp.getX() + 0.5);
-		loctp.setZ(loctp.getZ() + 0.5);
+		loctp.setZ(loctp.getZ() + 0.5 + addition);
 		loctp.setPitch(90);
 		loctp.setYaw(-90);
 		
@@ -113,6 +115,7 @@ public class cakeduell {
 		if (pl.getBlock().getType().equals(Material.DIAMOND_BLOCK)) {
 			player.sendMessage("gewonnen");
 			playerother.sendMessage("du nicht!");
+			loop2.cancel();
 		}
 	}
 
