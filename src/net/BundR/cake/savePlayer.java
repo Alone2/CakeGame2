@@ -78,6 +78,7 @@ public class savePlayer {
 		}
 		cfg.set("Player" + PlayerId + ".cake", "false");
 		cfg.set("Player" + PlayerId + ".teamm8", "0");
+		cfg.set("Player" + PlayerId + ".g-teamm8", "0");
 		specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 	}
 	public static void clear(Player player) {

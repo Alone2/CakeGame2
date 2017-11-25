@@ -25,14 +25,17 @@ public class cake_c implements CommandExecutor {
 			return false;
 		}
 
-		int debug = 1;
+		int debug = 0;
 		
 		Player player = (Player) sender;
 
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 		String PlayerId = getPlayerConfigId.fromUUID(String.valueOf(player.getUniqueId()));
 
 		if (cfg.getString("Player" + PlayerId + ".teamm8").equals("0")) {
+			
+			if (cfg2.getString("Cakeduell.end").equals("none")) {
 
 			if (args.length == 0) {
 
@@ -90,7 +93,7 @@ public class cake_c implements CommandExecutor {
 							cfg.set("Player" + PlayerId2 + ".teamm8", PlayerId);
 							specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 							
-							cakeduell.start(player,PlayerId, playerother, PlayerId2);
+							cakeduell.start(player,PlayerId, playerother, PlayerId2, 500);
 						}
 					}
 				} else if (args.length == 2 && args[0].equals("deny")) {
@@ -105,17 +108,21 @@ public class cake_c implements CommandExecutor {
 				}
 				if (debug == 1) {
 					if (args.length == 1 && args[0].equals("debug")) {
-						cakeduell.start(player,PlayerId, player, PlayerId);
+						//cake -> int -> erhöht sich mit Anzahl der Spiele
+						cakeduell.start(player,PlayerId, player, PlayerId, 500);
 						player.sendMessage("debug");
 					}
 				}
 			}
+			} else {
+				player.sendMessage(ChatColor.RED + "Es findet gerade ein Cake-duell statt! Warte noch ein bisschen!");
+			}
 		} else {
 			player.sendMessage(ChatColor.RED + "Fehler: Du hast schon einen Gegner!");
 		}
-
+		
 		return false;
-
+		
 	}
 
 }
