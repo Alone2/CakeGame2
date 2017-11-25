@@ -61,6 +61,7 @@ public class savePlayer {
 		player.setLevel(cfg.getInt("Player" + PlayerId + ".level"));
 		player.setGameMode(GameMode.valueOf(cfg.getString("Player" + PlayerId + ".gamemode")));
 		
+		player.getInventory().clear();
 		Inventory inv = player.getInventory();
 		for (int i=0; i<inv.getSize(); i++) {		
 			if (cfg.getString("Player" + PlayerId + ".inventory." + i + ".type") == null) continue;
@@ -75,15 +76,18 @@ public class savePlayer {
 		    PotionEffect potionE = new PotionEffect(PotionEffectType.getByName(cfg.getString("Player" + PlayerId + ".potion." + zero + ".type")), cfg.getInt("Player" + PlayerId + ".potion." + zero + ".duration"), cfg.getInt("Player" + PlayerId + ".potion." + zero + ".amplifier"));
 		    player.addPotionEffect(potionE);
 		}
+		cfg.set("Player" + PlayerId + ".cake", "false");
+		cfg.set("Player" + PlayerId + ".teamm8", "0");
+		specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 	}
 	public static void clear(Player player) {
 		player.setGameMode(GameMode.ADVENTURE);
 		player.getInventory().clear();
-		player.getActivePotionEffects().clear();
 		for (PotionEffect potion : player.getActivePotionEffects()) {
 			player.removePotionEffect(potion.getType());
 		}
 		player.setFoodLevel(1);
 		player.setHealth(20);
+		player.setLevel(0);
 	}
 }

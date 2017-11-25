@@ -4,8 +4,10 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.BundR.cake.commands.cake_c;
+import net.BundR.cake.event.player.PlayerDamage;
 import net.BundR.cake.event.player.PlayerEat;
 import net.BundR.cake.event.player.PlayerJoin;
+import net.BundR.cake.event.player.PlayerMove;
 
 public class cake extends JavaPlugin {
 
@@ -30,6 +32,8 @@ public class cake extends JavaPlugin {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new PlayerJoin(), this);
 		pm.registerEvents(new PlayerEat(), this);
+		pm.registerEvents(new PlayerMove(), this);
+		pm.registerEvents(new PlayerDamage(), this);
 	}
 	
 }

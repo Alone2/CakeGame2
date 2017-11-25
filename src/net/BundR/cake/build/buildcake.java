@@ -11,7 +11,7 @@ public class buildcake {
 		Material B = Material.BARRIER;
 		Material C = Material.CAKE_BLOCK;
 		Material R = Material.RED_SANDSTONE;
-		Material D = Material.DIAMOND_BLOCK;
+		Material D = Material.CHEST;
 		int X = l.getBlockX();
 		int Y = l.getBlockY();
 		int Z = l.getBlockZ();
@@ -31,11 +31,9 @@ public class buildcake {
 				
 				createBlock(l, X, Y, Z - 1, R);
 				createBlock(l, X, Y, Z + 1, R);
+				createBlock(l, X, Y, Z, R);
 				continue;
-			} else if (i == 1){
-				createBlock(l, X, Y, Z, D);
-				continue;
-			}
+			} 
 			
 			if (i < height) {
 			createBlock(l, X, Y, Z, C);
@@ -56,6 +54,14 @@ public class buildcake {
 			createBlock(l, X - 1, Y, Z - 2, B);
 			createBlock(l, X, Y, Z - 2, B);
 			createBlock(l, X + 1, Y, Z - 2, B);
+			
+			if (i == 1){
+				createBlock(l, X, Y, Z, D);
+				continue;
+			} else if (i == 2){
+				createBlock(l, X, Y, Z, D);
+				continue;
+			}
 
 		}
 		
