@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import net.BundR.cake.cake;
 import net.BundR.cake.cakeduell;
 import net.BundR.cake.getPlayerConfigId;
 import net.BundR.cake.specialConfig;
@@ -17,6 +18,12 @@ import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
 
 public class cake_c implements CommandExecutor {
+	
+	private cake plugin;
+
+	public cake_c(cake pl) {
+		plugin = pl;
+	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -24,8 +31,6 @@ public class cake_c implements CommandExecutor {
 			sender.sendMessage("Du must ein Spieler sein um dies nutzen zu können!");
 			return false;
 		}
-
-		int debug = 0;
 		
 		Player player = (Player) sender;
 
@@ -35,7 +40,7 @@ public class cake_c implements CommandExecutor {
 
 		if (cfg.getString("Player" + PlayerId + ".teamm8").equals("0")) {
 			
-			if (cfg2.getString("Cakeduell.end").equals("none")) {
+			
 
 			if (args.length == 0) {
 
@@ -72,6 +77,13 @@ public class cake_c implements CommandExecutor {
 
 						cfg.set("Player" + PlayerId + ".g-teamm8", args[1]);
 						specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
+						
+						Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+						    public void run() {	
+						    	//cfg.set("Player" + PlayerId + ".g-teamm8", "0");
+								//specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");			    	
+						    }
+						}, 30 * 20L);
 
 					} else if (on == 2) {
 						player.sendMessage(ChatColor.RED + "Fehler: Du kannst mit dir selber kein Cake-duell machen!");
@@ -86,6 +98,8 @@ public class cake_c implements CommandExecutor {
 
 						String PlayerId2 = getPlayerConfigId.fromUUID(String.valueOf(playerother.getUniqueId()));
 						if (cfg.getString("Player" + PlayerId2 + ".g-teamm8").equals(player.getName())) {
+							
+							int addition = (cfg2.getInt("Cakeduell.number") + 1)*100;
 							playerother.sendMessage(ChatColor.GREEN + "Deine Cake-duell Anfrage für " + ChatColor.DARK_GREEN + player.getName() + ChatColor.GREEN + " wurde akzeptiert!");
 							player.sendMessage(ChatColor.GREEN + "Du hast die Cake-duell Anfrage von " + ChatColor.DARK_GREEN + playerother.getName() + ChatColor.GREEN + " akzeptiert!");
 
@@ -93,7 +107,9 @@ public class cake_c implements CommandExecutor {
 							cfg.set("Player" + PlayerId2 + ".teamm8", PlayerId);
 							specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 							
-							cakeduell.start(player,PlayerId, playerother, PlayerId2, 500);
+							cakeduell.start(player,PlayerId, playerother, PlayerId2, addition);
+						} else {
+							player.sendMessage(ChatColor.RED + "Die Anfrage von " + args[1] + " ist abgelaufen, oder war noch nie existent!");
 						}
 					}
 				} else if (args.length == 2 && args[0].equals("deny")) {
@@ -106,17 +122,13 @@ public class cake_c implements CommandExecutor {
 				} else {
 					player.sendMessage(ChatColor.RED + "Fehler: /cake duell [name] <---");
 				}
-				if (debug == 1) {
-					if (args.length == 1 && args[0].equals("debug")) {
-						//cake -> int -> erhöht sich mit Anzahl der Spiele
-						cakeduell.start(player,PlayerId, player, PlayerId, 500);
-						player.sendMessage("debug");
-					}
+				
+				if (on == 0) {
+					player.sendMessage(ChatColor.RED + "Fehler: Dieser Spieler ist nicht online!");
 				}
+				
 			}
-			} else {
-				player.sendMessage(ChatColor.RED + "Es findet gerade ein Cake-duell statt! Warte noch ein bisschen!");
-			}
+			
 		} else {
 			player.sendMessage(ChatColor.RED + "Fehler: Du hast schon einen Gegner!");
 		}

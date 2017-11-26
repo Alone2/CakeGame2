@@ -31,11 +31,13 @@ public class cakeduell {
 	public static void start(Player player, String playerID, Player playerother, String playerotherID, int addition) {
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
-		cfg2.set("Cakeduell.end", "false");
-		cfg2.set("Cakeduell.player.1.name", player.getName());
-		cfg2.set("Cakeduell.player.1.PlayerId", playerID);
-		cfg2.set("Cakeduell.player.2.name", playerother.getName());
-		cfg2.set("Cakeduell.player.2.PlayerId", playerotherID);
+		int number = cfg2.getInt("Cakeduell.number") + 1;
+		cfg2.set("Cakeduell.number", number);
+		cfg2.set("Cakeduell." + number + ".end", "false");
+		cfg2.set("Cakeduell." + number + ".player.1.name", player.getName());
+		cfg2.set("Cakeduell." + number + ".player.1.PlayerId", playerID);
+		cfg2.set("Cakeduell." + number + ".player.2.name", playerother.getName());
+		cfg2.set("Cakeduell." + number + ".player.2.PlayerId", playerotherID);
 		cfg.set("Player" + playerID + ".cake", "true");
 		cfg.set("Player" + playerotherID + ".cake", "true");
 		specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
@@ -82,15 +84,17 @@ public class cakeduell {
 		loop2 = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 			@Override
 			public void run() {
-				ingame(player, playerID, playerother, playerotherID, cfg2, addition, cfg);
-				ingame(playerother, playerotherID, player, playerID, cfg2, addition + 5, cfg);
+				ingame(player, playerID, playerother, playerotherID, cfg2, addition, cfg, number);
+				ingame(playerother, playerotherID, player, playerID, cfg2, addition + 5, cfg, number);
 				
-				if (cfg2.getString("Cakeduell.end").equals("true")) {
+				if (cfg2.getString("Cakeduell." + number + ".end").equals("true")) {
 					Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					    public void run() {	
 					    	cfg.set("Player" + playerID + ".noCake", "false");
 					    	cfg.set("Player" + playerotherID + ".noCake", "false");
-					    	cfg2.set("Cakeduell.end", "none");
+					    	FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
+					    	//cfg2.set("Cakeduell.end", "none");
+					    	cfg2.set("Cakeduell.number", cfg2.getInt("Cakeduell.number") - 1);
 							specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 							specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
 							
@@ -106,11 +110,7 @@ public class cakeduell {
 				
 			}
 		}, (1L), 1);
-		
-		//player.teleport(Bukkit.getWorld("cake-duell").getSpawnLocation(), TeleportCause.PLUGIN);
-		//savePlayer.setOld(cfg, playerotherID, playerother);
-		
-	
+				
 	}
 	private static void run(Player player, String playerID, FileConfiguration cfg, int addition) {
 		
@@ -135,16 +135,16 @@ public class cakeduell {
 		specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 		
 	}
-	private static void ingame(Player player, String playerID, Player playerother, String playerotherID, FileConfiguration cfg2, int addition, FileConfiguration cfg) {
+	private static void ingame(Player player, String playerID, Player playerother, String playerotherID, FileConfiguration cfg2, int addition, FileConfiguration cfg, int number) {
 		player.setFoodLevel(1);
 		
 		Location pl = player.getLocation();
 		pl.setY(pl.getY() - 1);
-		if (pl.getBlock().getType().equals(Material.RED_SANDSTONE)) {
+		if (pl.getBlock().getType().equals(Material.SANDSTONE)) {
 			player.sendTitle(ChatColor.DARK_RED + playerother.getName(),ChatColor.RED + "hat gewonnen!", 20, 80, 20);
 			playerother.sendTitle(ChatColor.DARK_GREEN + playerother.getName(),ChatColor.GREEN + "hat gewonnen!", 20, 80, 20);
 			loop2.cancel();
-			cfg2.set("Cakeduell.end", "true");
+			cfg2.set("Cakeduell." + number + ".end", "true");
 			specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
 		}
 		Location CakeLoc = Bukkit.getWorld("cake-duell").getSpawnLocation();
@@ -154,7 +154,7 @@ public class cakeduell {
 			player.sendTitle(ChatColor.DARK_GREEN + player.getName(),ChatColor.GREEN + "hat gewonnen!", 20, 80, 20);
 			playerother.sendTitle(ChatColor.DARK_RED + player.getName(),ChatColor.RED + "hat gewonnen!", 20, 80, 20);
 			loop2.cancel();
-			cfg2.set("Cakeduell.end", "true");
+			cfg2.set("Cakeduell." + number + ".end", "true");
 			specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
 		}
 		if (!player.isOnline()) {
@@ -162,7 +162,7 @@ public class cakeduell {
 			player.sendTitle(ChatColor.DARK_RED + playerother.getName(),ChatColor.RED + "hat gewonnen!", 20, 80, 20);
 			playerother.sendTitle(ChatColor.DARK_GREEN + playerother.getName(),ChatColor.GREEN + "hat gewonnen!", 20, 80, 20);
 			loop2.cancel();
-			cfg2.set("Cakeduell.end", "true");
+			cfg2.set("Cakeduell." + number + ".end", "true");
 			specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
 		}
 	}

@@ -27,11 +27,12 @@ public class cake extends JavaPlugin {
 	public void onDisable() {
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
-		if (!cfg2.getString("Cakeduell.end").equals("none")) {
-			Player player = Bukkit.getPlayer(cfg2.getString("Cakeduell.player.1.name"));
-			Player player2 = Bukkit.getPlayer(cfg2.getString("Cakeduell.player.2.name"));
-			String PlayerId = cfg2.getString("Cakeduell.player.1.PlayerId");
-			String PlayerId2 = cfg2.getString("Cakeduell.player.2.PlayerId");
+
+		for (int i = 0; i < cfg2.getInt("Cakeduell.number"); i++) {
+			Player player = Bukkit.getPlayer(cfg2.getString("Cakeduell." + Integer.valueOf(i+1) + ".player.1.name"));
+			Player player2 = Bukkit.getPlayer(cfg2.getString("Cakeduell." + Integer.valueOf(i+1) + ".player.2.name"));
+			String PlayerId = cfg2.getString("Cakeduell." + Integer.valueOf(i+1) + ".player.1.PlayerId");
+			String PlayerId2 = cfg2.getString("Cakeduell." + Integer.valueOf(i+1) + ".player.2.PlayerId");
 			cfg.set("Player" + PlayerId + ".noCake", "false");
 	    	cfg.set("Player" + PlayerId2 + ".noCake", "false");
 	    	specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
@@ -44,7 +45,7 @@ public class cake extends JavaPlugin {
 
 	public void registerCommands() {
 
-		getCommand("cake").setExecutor(new cake_c());
+		getCommand("cake").setExecutor(new cake_c(this));
 
 	}
 	
@@ -67,7 +68,8 @@ public class cake extends JavaPlugin {
         }
         
         FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
-		cfg2.set("Cakeduell.end", "none");
+		//cfg2.set("Cakeduell.end", "none");
+		cfg2.set("Cakeduell.number", 0);
 		specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml"); 
 		
 	}
