@@ -25,11 +25,11 @@ public class cake_c implements CommandExecutor {
 	public cake_c(cake pl) {
 		plugin = pl;
 	}
+	FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
+	final BukkitTask[] loop1 = new BukkitTask[cfg2.getInt("WieViele") + 1];
 	
-	private BukkitTask loop1;
-
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+		
 		if (!(sender instanceof Player)) {
 			sender.sendMessage("Du must ein Spieler sein um dies nutzen zu können!");
 			return false;
@@ -40,11 +40,18 @@ public class cake_c implements CommandExecutor {
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 		String PlayerId = getPlayerConfigId.fromUUID(String.valueOf(player.getUniqueId()));
+		
+		/*class Box<T> {
+		    public volatile T value;
+		}
+		
+		final Box<BukkitTask> loop1 = new Box<BukkitTask>();*/
+		
 
 		if (cfg.getString("Player" + PlayerId + ".teamm8").equals("0")) {
 			
+			if(cfg2.getInt("Cakeduell.number") == 0) {
 			
-
 			if (args.length == 0) {
 
 				player.sendMessage(ChatColor.RED + "Fehler: /cake duell [name] <---");
@@ -82,19 +89,19 @@ public class cake_c implements CommandExecutor {
 						cfg.set("Player" + PlayerId + ".g-teamm8-t", 30);
 						specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 						
-						loop1 = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
+						loop1[Integer.valueOf(PlayerId)] = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 							@Override
 							public void run() {
 								FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 								if (cfg.getInt("Player" + PlayerId + ".g-teamm8-t") <= 0) {
 									cfg.set("Player" + PlayerId + ".g-teamm8", "0");
-									loop1.cancel();
+									loop1[Integer.valueOf(PlayerId)].cancel();
 								} else {
 									cfg.set("Player" + PlayerId + ".g-teamm8-t", Integer.valueOf(cfg.getInt("Player" + PlayerId + ".g-teamm8-t") - 1));
 								}
 								specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 							}
-						}, (20 * 1L), 20 * 1);
+						}, 20 * 1L, 20 * 1);
 
 					} else if (on == 2) {
 						player.sendMessage(ChatColor.RED + "Fehler: Du kannst mit dir selber kein Cake-duell machen!");
@@ -138,6 +145,9 @@ public class cake_c implements CommandExecutor {
 					player.sendMessage(ChatColor.RED + "Fehler: Dieser Spieler ist nicht online!");
 				}
 				
+			}
+			} else {
+				player.sendMessage(ChatColor.RED + "Fehler: Jemand spielt schon Cake-duell. Probiere es in kurzer Zeit noch einmal!");
 			}
 			
 		} else {
