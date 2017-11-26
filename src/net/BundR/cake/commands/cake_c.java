@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 
 import net.BundR.cake.cake;
 import net.BundR.cake.cakeduell;
@@ -24,6 +25,8 @@ public class cake_c implements CommandExecutor {
 	public cake_c(cake pl) {
 		plugin = pl;
 	}
+	
+	private BukkitTask loop1;
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -76,14 +79,22 @@ public class cake_c implements CommandExecutor {
 						((CraftPlayer) playerother).getHandle().playerConnection.sendPacket(chat3);
 
 						cfg.set("Player" + PlayerId + ".g-teamm8", args[1]);
+						cfg.set("Player" + PlayerId + ".g-teamm8-t", 30);
 						specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 						
-						Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-						    public void run() {	
-						    	//cfg.set("Player" + PlayerId + ".g-teamm8", "0");
-								//specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");			    	
-						    }
-						}, 30 * 20L);
+						loop1 = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
+							@Override
+							public void run() {
+								FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
+								if (cfg.getInt("Player" + PlayerId + ".g-teamm8-t") <= 0) {
+									cfg.set("Player" + PlayerId + ".g-teamm8", "0");
+									loop1.cancel();
+								} else {
+									cfg.set("Player" + PlayerId + ".g-teamm8-t", Integer.valueOf(cfg.getInt("Player" + PlayerId + ".g-teamm8-t") - 1));
+								}
+								specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
+							}
+						}, (20 * 1L), 20 * 1);
 
 					} else if (on == 2) {
 						player.sendMessage(ChatColor.RED + "Fehler: Du kannst mit dir selber kein Cake-duell machen!");
