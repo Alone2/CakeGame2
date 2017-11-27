@@ -50,9 +50,11 @@ public class cakeduell {
 			wc.environment(Environment.NORMAL);
 			wc.generateStructures(false);
 			wc.type(WorldType.FLAT);
-			Bukkit.broadcastMessage("§cEine neue Welt wird generiert! Vielleicht wird's in der nächsten Zeit laggen! (Das passiert nie wieder!)");
+			player.sendMessage("§cWelt wird generiert!");
+			playerother.sendMessage("§cWelt wird generiert!");
 			wc.createWorld();
-			Bukkit.broadcastMessage("§cDie Generation der neuen Welt wurde beendet!");
+			player.sendMessage("§cDie Generation der neuen Welt wurde beendet!");
+			playerother.sendMessage("§cDie Generation der neuen Welt wurde beendet!");
 		}
 		Bukkit.getWorld("cake-duell").setDifficulty(Difficulty.PEACEFUL);
 		Bukkit.getWorld("cake-duell").setTime(5000);
