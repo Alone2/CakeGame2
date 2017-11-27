@@ -25,8 +25,8 @@ public class cake_c implements CommandExecutor {
 	public cake_c(cake pl) {
 		plugin = pl;
 	}
-	FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
-	final BukkitTask[] loop1 = new BukkitTask[cfg2.getInt("WieViele") + 1];
+
+	final BukkitTask[] loop1 = new BukkitTask[Bukkit.getServer().getMaxPlayers() + 1];
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
@@ -41,16 +41,9 @@ public class cake_c implements CommandExecutor {
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 		String PlayerId = getPlayerConfigId.fromUUID(String.valueOf(player.getUniqueId()));
 		
-		/*class Box<T> {
-		    public volatile T value;
-		}
-		
-		final Box<BukkitTask> loop1 = new Box<BukkitTask>();*/
-		
-
 		if (cfg.getString("Player" + PlayerId + ".teamm8").equals("0")) {
 			
-			if(cfg2.getInt("Cakeduell.number") == 0) {
+			if(cfg2.getInt("Cakeduell.number") < plugin.getConfig().getInt("Cakduellrunden")) {
 			
 			if (args.length == 0) {
 
@@ -147,7 +140,7 @@ public class cake_c implements CommandExecutor {
 				
 			}
 			} else {
-				player.sendMessage(ChatColor.RED + "Fehler: Jemand spielt schon Cake-duell. Probiere es in kurzer Zeit noch einmal!");
+				player.sendMessage(ChatColor.RED + "Fehler: Es spielen Momentan zu viele Cake-duell. Probiere es in kurzer Zeit noch einmal!");
 			}
 			
 		} else {

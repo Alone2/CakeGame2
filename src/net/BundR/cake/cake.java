@@ -60,6 +60,9 @@ public class cake extends JavaPlugin {
 	
 	public void registerConfig() {
 		
+		getConfig().options().copyDefaults(true);
+		saveConfig();
+		
 		File specialf = new File(getDataFolder(), "data.yml");
 
         if (!specialf.exists()) {
