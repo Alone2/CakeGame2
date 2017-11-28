@@ -25,8 +25,9 @@ public class cake_c implements CommandExecutor {
 	public cake_c(cake pl) {
 		plugin = pl;
 	}
-
-	final BukkitTask[] loop1 = new BukkitTask[Bukkit.getServer().getMaxPlayers() + 1];
+	
+	static FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
+	final BukkitTask[] loop1 = new BukkitTask[Bukkit.getServer().getMaxPlayers() + cfg2.getInt("WieViele") + 1];
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
@@ -132,10 +133,6 @@ public class cake_c implements CommandExecutor {
 					}
 				} else {
 					player.sendMessage(ChatColor.RED + "Fehler: /cake duell [name] <---");
-				}
-				
-				if (on == 0) {
-					player.sendMessage(ChatColor.RED + "Fehler: Dieser Spieler ist nicht online!");
 				}
 				
 			}
