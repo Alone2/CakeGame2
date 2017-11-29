@@ -27,7 +27,7 @@ public class cake_c implements CommandExecutor {
 	}
 	
 	static FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
-	final BukkitTask[] loop1 = new BukkitTask[Bukkit.getServer().getMaxPlayers() + cfg2.getInt("WieViele") + 1];
+	final BukkitTask[] loop = new BukkitTask[Bukkit.getServer().getMaxPlayers() + cfg2.getInt("WieViele") + 1];
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
@@ -83,13 +83,13 @@ public class cake_c implements CommandExecutor {
 						cfg.set("Player" + PlayerId + ".g-teamm8-t", 30);
 						specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 						
-						loop1[Integer.valueOf(PlayerId)] = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
+						loop[Integer.valueOf(PlayerId)] = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 							@Override
 							public void run() {
 								FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 								if (cfg.getInt("Player" + PlayerId + ".g-teamm8-t") <= 0) {
 									cfg.set("Player" + PlayerId + ".g-teamm8", "0");
-									loop1[Integer.valueOf(PlayerId)].cancel();
+									loop[Integer.valueOf(PlayerId)].cancel();
 								} else {
 									cfg.set("Player" + PlayerId + ".g-teamm8-t", Integer.valueOf(cfg.getInt("Player" + PlayerId + ".g-teamm8-t") - 1));
 								}
