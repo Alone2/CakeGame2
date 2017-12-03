@@ -71,12 +71,18 @@ public class cake extends JavaPlugin {
         }
         
         FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
+        FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
+        
         for (int i = 0; i < Bukkit.getServer().getMaxPlayers(); i++) {
         	cfg2.set("loop." + i, 0);
+        }
+        for (int i = 0; i < cfg2.getInt("WieViele"); i++) {
+        	cfg.set("Player" + Integer.valueOf(i + 1) + ".g-teamm8", "0");
         }
         
 		cfg2.set("Cakeduell.number", 0);
 		specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml"); 
+		specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml"); 
 		
 	}
 	

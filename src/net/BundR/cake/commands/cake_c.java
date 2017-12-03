@@ -112,7 +112,6 @@ public class cake_c implements CommandExecutor {
 								} else {
 									cfg.set("Player" + PlayerId + ".g-teamm8-t", Integer.valueOf(cfg.getInt("Player" + PlayerId + ".g-teamm8-t") - 1));
 								}
-								player.sendMessage(String.valueOf(cfg.getInt("Player" + PlayerId + ".g-teamm8-t")));
 								specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 								specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
 							}
