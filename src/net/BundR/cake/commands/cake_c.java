@@ -27,7 +27,7 @@ public class cake_c implements CommandExecutor {
 	}
 	
 	static FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
-	final BukkitTask[] loop = new BukkitTask[Bukkit.getServer().getMaxPlayers() + cfg2.getInt("WieViele") + 1];
+	final BukkitTask[] loop = new BukkitTask[Bukkit.getServer().getMaxPlayers() + 1];
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
@@ -38,9 +38,26 @@ public class cake_c implements CommandExecutor {
 		
 		Player player = (Player) sender;
 
-		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
+		FileConfiguration cfg3 = specialConfig.config("plugins//CakeGame//player.yml");
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 		String PlayerId = getPlayerConfigId.fromUUID(String.valueOf(player.getUniqueId()));
+		
+		if (cfg3.getString("Player" + PlayerId + ".g-teamm8").equals("0")) {
+			
+			for (int i = 0; i < Bukkit.getServer().getMaxPlayers(); i++) {
+				if (cfg2.getInt("loop." + i) == 0) {
+					cfg2.set("loop." + i, 1);
+					cfg3.set("Player" + PlayerId + ".loopID", i);
+					specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
+					specialConfig.saveConfig(cfg3, "plugins//CakeGame//player.yml");
+					break;
+				}
+			}
+		} else {
+			loop[cfg3.getInt("Player" + PlayerId + ".loopID")].cancel();
+		}
+		
+		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 		
 		if (cfg.getString("Player" + PlayerId + ".teamm8").equals("0")) {
 			
@@ -83,17 +100,21 @@ public class cake_c implements CommandExecutor {
 						cfg.set("Player" + PlayerId + ".g-teamm8-t", 30);
 						specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 						
-						loop[Integer.valueOf(PlayerId)] = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
+						loop[cfg.getInt("Player" + PlayerId + ".loopID")] = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 							@Override
 							public void run() {
 								FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
+								FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 								if (cfg.getInt("Player" + PlayerId + ".g-teamm8-t") <= 0) {
 									cfg.set("Player" + PlayerId + ".g-teamm8", "0");
-									loop[Integer.valueOf(PlayerId)].cancel();
+									cfg2.set("loop." + cfg.getInt("Player" + PlayerId + ".loopID"), 0);
+									loop[cfg.getInt("Player" + PlayerId + ".loopID")].cancel();
 								} else {
 									cfg.set("Player" + PlayerId + ".g-teamm8-t", Integer.valueOf(cfg.getInt("Player" + PlayerId + ".g-teamm8-t") - 1));
 								}
+								player.sendMessage(String.valueOf(cfg.getInt("Player" + PlayerId + ".g-teamm8-t")));
 								specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
+								specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
 							}
 						}, 20 * 1L, 20 * 1);
 

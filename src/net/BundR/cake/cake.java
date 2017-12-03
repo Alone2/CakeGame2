@@ -71,7 +71,10 @@ public class cake extends JavaPlugin {
         }
         
         FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
-		//cfg2.set("Cakeduell.end", "none");
+        for (int i = 0; i < Bukkit.getServer().getMaxPlayers(); i++) {
+        	cfg2.set("loop." + i, 0);
+        }
+        
 		cfg2.set("Cakeduell.number", 0);
 		specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml"); 
 		
