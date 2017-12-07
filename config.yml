@@ -1,2 +1,4 @@
 # Cakeduellrunden = Wie viele Cake-duelle koennen gleichzeitig stattfinden.
+# Height = Wie Hoch der Kuchenturm wird. (Max: 248)
 Cakduellrunden: 10
+Height: 200

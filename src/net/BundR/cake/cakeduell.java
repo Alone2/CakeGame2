@@ -122,7 +122,11 @@ public class cakeduell {
 		
 		savePlayer.save(cfg, playerID, player);
 		
-		int height = 50;
+		int height = plugin.getConfig().getInt("Height");
+		if (height > 248) {
+			height = 248;
+		}
+		
 		Location loc = Bukkit.getWorld("cake-duell").getSpawnLocation();
 		loc.setZ(loc.getZ() + addition);
 		buildcake.build(loc, height);
