@@ -31,8 +31,11 @@ public class cake_c implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
+		FileConfiguration cfg4 = specialConfig.config("plugins//CakeGame//language.yml");
+		String lang = cfg4.getString("lang");
+		
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("Du must ein Spieler sein um dies nutzen zu können!");
+			sender.sendMessage(cfg4.getString(lang + ".beaplayer"));
 			return false;
 		}
 		
@@ -64,8 +67,8 @@ public class cake_c implements CommandExecutor {
 			if(cfg2.getInt("Cakeduell.number") < plugin.getConfig().getInt("Cakduellrunden")) {
 			
 			if (args.length == 0) {
-
-				player.sendMessage(ChatColor.RED + "Fehler: /cake duell [name] <---");
+				
+				player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + cfg4.getString(lang + ".badcakecommand"));
 
 			} else {
 				int on = 0;
@@ -118,9 +121,9 @@ public class cake_c implements CommandExecutor {
 						}, 20 * 1L, 20 * 1);
 
 					} else if (on == 2) {
-						player.sendMessage(ChatColor.RED + "Fehler: Du kannst mit dir selber kein Cake-duell machen!");
+						player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + cfg4.getString(lang + ".yourself"));
 					} else {
-						player.sendMessage(ChatColor.RED + "Fehler: " + ChatColor.DARK_RED + args[1] + ChatColor.RED + " ist nicht online!");
+						player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + ChatColor.DARK_RED + args[1] + ChatColor.RED + " " + cfg4.getString(lang + ".isnotonline"));
 					}
 
 				} else if (args.length == 2 && args[0].equals("accept")) {
@@ -132,8 +135,8 @@ public class cake_c implements CommandExecutor {
 						if (cfg.getString("Player" + PlayerId2 + ".g-teamm8").equals(player.getName())) {
 							
 							int addition = (cfg2.getInt("Cakeduell.number") + 1)*100;
-							playerother.sendMessage(ChatColor.GREEN + "Deine Cake-duell Anfrage für " + ChatColor.DARK_GREEN + player.getName() + ChatColor.GREEN + " wurde akzeptiert!");
-							player.sendMessage(ChatColor.GREEN + "Du hast die Cake-duell Anfrage von " + ChatColor.DARK_GREEN + playerother.getName() + ChatColor.GREEN + " akzeptiert!");
+							playerother.sendMessage(ChatColor.GREEN + "Deine Cake-duell Einladung für " + ChatColor.DARK_GREEN + player.getName() + ChatColor.GREEN + " wurde akzeptiert!");
+							player.sendMessage(ChatColor.GREEN + "Du hast die Cake-duell Einladung von " + ChatColor.DARK_GREEN + playerother.getName() + ChatColor.GREEN + " akzeptiert!");
 
 							cfg.set("Player" + PlayerId + ".teamm8", PlayerId2);
 							cfg.set("Player" + PlayerId2 + ".teamm8", PlayerId);
@@ -141,27 +144,27 @@ public class cake_c implements CommandExecutor {
 							
 							cakeduell.start(player,PlayerId, playerother, PlayerId2, addition);
 						} else {
-							player.sendMessage(ChatColor.RED + "Die Anfrage von " + args[1] + " ist abgelaufen, oder war noch nie existent!");
+							player.sendMessage(ChatColor.RED + "Die Einladung von " + args[1] + " ist abgelaufen, oder war noch nie existent!");
 						}
 					}
 				} else if (args.length == 2 && args[0].equals("deny")) {
 
 					if (on == 1) {
 						Player playerother = player.getServer().getPlayer(args[1]);
-						playerother.sendMessage(ChatColor.RED + "Deine Cake-duell Anfrage für " + ChatColor.DARK_RED + player.getName() + ChatColor.RED + " wurde abgelehnt!");
-						player.sendMessage(ChatColor.RED + "Du hast die Cake-duell Anfrage von " + ChatColor.DARK_RED + playerother.getName() + ChatColor.RED + " abgelehnt!");
+						playerother.sendMessage(ChatColor.RED + "Deine Cake-duell Einladung für " + ChatColor.DARK_RED + player.getName() + ChatColor.RED + " wurde abgelehnt!");
+						player.sendMessage(ChatColor.RED + "Du hast die Cake-duell Einladung von " + ChatColor.DARK_RED + playerother.getName() + ChatColor.RED + " abgelehnt!");
 					}
 				} else {
-					player.sendMessage(ChatColor.RED + "Fehler: /cake duell [name] <---");
+					player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + cfg4.getString(lang + ".badcakecommand"));
 				}
 				
 			}
 			} else {
-				player.sendMessage(ChatColor.RED + "Fehler: Es spielen Momentan zu viele Cake-duell. Probiere es in kurzer Zeit noch einmal!");
+				player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + cfg4.getString(lang + ".toomany"));
 			}
 			
 		} else {
-			player.sendMessage(ChatColor.RED + "Fehler: Du hast schon einen Gegner!");
+			player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + cfg4.getString(lang + ".youhaveaopponent"));
 		}
 		
 		return false;

@@ -25,6 +25,7 @@ public class cake extends JavaPlugin {
 	}
 
 	public void onDisable() {
+		FileConfiguration cfg3 = specialConfig.config("plugins//CakeGame//language.yml");
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 
@@ -38,8 +39,8 @@ public class cake extends JavaPlugin {
 	    	specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 			savePlayer.setOld(cfg, PlayerId, player);
 			savePlayer.setOld(cfg, PlayerId2, player2);
-			player.sendMessage(ChatColor.RED + "Du wurdest aus dem Spiel gekickt, da der Server neu startet oder herunterfährt!");
-			player2.sendMessage(ChatColor.RED + "Du wurdest aus dem Spiel gekickt, da der Server neu startet oder herunterfährt!");
+			player.sendMessage(ChatColor.RED + cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
+			player2.sendMessage(ChatColor.RED + cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
 		}
 	}
 
@@ -64,10 +65,16 @@ public class cake extends JavaPlugin {
 		saveConfig();
 		
 		File specialf = new File(getDataFolder(), "data.yml");
+		File specialf2 = new File(getDataFolder(), "language.yml");
 
         if (!specialf.exists()) {
             specialf.getParentFile().mkdirs();
             saveResource("data.yml", false);
+        }
+        
+        if (!specialf2.exists()) {
+            specialf2.getParentFile().mkdirs();
+            saveResource("language.yml", false);
         }
         
         FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");

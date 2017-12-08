@@ -1,0 +1,19 @@
+#used language
+lang: de
+
+#german
+de:
+    kickmessage: 'Du wurdest aus dem Spiel gekickt, da der Server neu startet oder herunterfährt!'
+    #errors
+    error: 'Fehler: '
+    beaplayer: 'Du must ein Spieler sein um dies nutzen zu können'
+    badcakecommand: '/cake duell [name] <---'
+    isnotonline: 'ist nicht online!'
+    yourself: 'Du kannst mit dir selber kein Cake-duell machen!'
+    youhaveaopponent: 'Du hast schon einen Gegner!'
+    toomany: 'Es spielen Momentan zu viele Cake-duell. Probiere es in kurzer Zeit noch einmal!'
+    #invitements
+    invitementfor: 'Deine die Cake-duell Einladung für '
+    invitementof: 'Du hast die Cake-duell Einladung von '
+    invitementfordeny: 'wurde abgelehnt'
+    invitementofdeny: 'abgelehnt'
