@@ -12,8 +12,8 @@ de:
     yourself: 'Du kannst mit dir selber kein Cake-duell machen!'
     youhaveaopponent: 'Du hast schon einen Gegner!'
     toomany: 'Es spielen Momentan zu viele Cake-duell. Probiere es in kurzer Zeit noch einmal!'
-    #invitements
-    invitementfor: 'Deine die Cake-duell Einladung für '
-    invitementof: 'Du hast die Cake-duell Einladung von '
-    invitementfordeny: 'wurde abgelehnt'
-    invitementofdeny: 'abgelehnt'
+    #invitements (@name is a variable)
+    invitementforaccept: 'Deine Cake-duell Einladung für @name wurde akzeptiert!'
+    invitementofaccept: 'Du hast die Cake-duell Einladung von @name akzeptiert!'
+    invitementfordeny: 'Deine Cake-duell Einladung für @name wurde abgelehnt!'
+    invitementofdeny: 'Du hast die Cake-duell Einladung von @name abgelehnt!'

@@ -134,9 +134,10 @@ public class cake_c implements CommandExecutor {
 						String PlayerId2 = getPlayerConfigId.fromUUID(String.valueOf(playerother.getUniqueId()));
 						if (cfg.getString("Player" + PlayerId2 + ".g-teamm8").equals(player.getName())) {
 							
+							String[] Invitementfor = cfg4.getString(lang + ".invitementforaccept").split("@name"), Invitementof = cfg4.getString(lang + ".invitementofaccept").split("@name");
 							int addition = (cfg2.getInt("Cakeduell.number") + 1)*100;
-							playerother.sendMessage(ChatColor.GREEN + "Deine Cake-duell Einladung für " + ChatColor.DARK_GREEN + player.getName() + ChatColor.GREEN + " wurde akzeptiert!");
-							player.sendMessage(ChatColor.GREEN + "Du hast die Cake-duell Einladung von " + ChatColor.DARK_GREEN + playerother.getName() + ChatColor.GREEN + " akzeptiert!");
+							playerother.sendMessage(ChatColor.GREEN + Invitementfor[0] + ChatColor.DARK_GREEN + player.getName() + ChatColor.GREEN + Invitementfor[1]);
+							player.sendMessage(ChatColor.GREEN + Invitementof[0] + ChatColor.DARK_GREEN + playerother.getName() + ChatColor.GREEN + Invitementof[1]);
 
 							cfg.set("Player" + PlayerId + ".teamm8", PlayerId2);
 							cfg.set("Player" + PlayerId2 + ".teamm8", PlayerId);
@@ -151,8 +152,9 @@ public class cake_c implements CommandExecutor {
 
 					if (on == 1) {
 						Player playerother = player.getServer().getPlayer(args[1]);
-						playerother.sendMessage(ChatColor.RED + "Deine Cake-duell Einladung für " + ChatColor.DARK_RED + player.getName() + ChatColor.RED + " wurde abgelehnt!");
-						player.sendMessage(ChatColor.RED + "Du hast die Cake-duell Einladung von " + ChatColor.DARK_RED + playerother.getName() + ChatColor.RED + " abgelehnt!");
+						String[] Invitementfor = cfg4.getString(lang + ".invitementfordeny").split("@name"), Invitementof = cfg4.getString(lang + ".invitementofdeny").split("@name");
+						playerother.sendMessage(ChatColor.RED + Invitementfor[0] + ChatColor.DARK_RED + player.getName() + ChatColor.RED + Invitementfor[1]);
+						player.sendMessage(ChatColor.RED + Invitementof[0] + ChatColor.DARK_RED + playerother.getName() + ChatColor.RED + Invitementof[1]);
 					}
 				} else {
 					player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + cfg4.getString(lang + ".badcakecommand"));
