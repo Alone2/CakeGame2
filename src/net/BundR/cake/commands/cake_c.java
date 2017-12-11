@@ -91,11 +91,11 @@ public class cake_c implements CommandExecutor {
 						playerother.sendMessage(ChatColor.DARK_GREEN + player.getName() + ChatColor.GREEN + " hat dich zu einem Cake-duell eingeladen! Hilfst du mit?");
 						player.sendMessage(ChatColor.GREEN + "Du hast " + ChatColor.DARK_GREEN + playerother.getName() + ChatColor.GREEN + " zu einem Cake-duell eingeladen!");
 
-						IChatBaseComponent comp2 = ChatSerializer.a("{\"text\":\" [JA]\",\"color\":\"dark_green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/cake accept " + player.getName() + "\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"/cake accept " + args[1] + "\",\"color\":\"dark_green\"}]}}}");
+						IChatBaseComponent comp2 = ChatSerializer.a("{\"text\":\" [" + cfg4.getString(lang + ".yes") + "]\",\"color\":\"dark_green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/cake accept " + player.getName() + "\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"/cake accept " + args[1] + "\",\"color\":\"dark_green\"}]}}}");
 						PacketPlayOutChat chat2 = new PacketPlayOutChat(comp2);
 						((CraftPlayer) playerother).getHandle().playerConnection.sendPacket(chat2);
 
-						IChatBaseComponent comp3 = ChatSerializer.a("{\"text\":\" [NEIN]\",\"color\":\"dark_red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/cake deny " + player.getName() + "\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"/cake deny " + args[1] + "\",\"color\":\"dark_red\"}]}}}");
+						IChatBaseComponent comp3 = ChatSerializer.a("{\"text\":\" [" + cfg4.getString(lang + ".no") + "]\",\"color\":\"dark_red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/cake deny " + player.getName() + "\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"/cake deny " + args[1] + "\",\"color\":\"dark_red\"}]}}}");
 						PacketPlayOutChat chat3 = new PacketPlayOutChat(comp3);
 						((CraftPlayer) playerother).getHandle().playerConnection.sendPacket(chat3);
 
@@ -121,7 +121,7 @@ public class cake_c implements CommandExecutor {
 						}, 20 * 1L, 20 * 1);
 
 					} else if (on == 2) {
-						player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + cfg4.getString(lang + ".yourself"));
+						player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + cfg4.getString(lang + ".youcantplaywithyourself"));
 					} else {
 						player.sendMessage(ChatColor.RED + cfg4.getString(lang + ".error") + ChatColor.DARK_RED + args[1] + ChatColor.RED + " " + cfg4.getString(lang + ".isnotonline"));
 					}

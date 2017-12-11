@@ -3,13 +3,18 @@ lang: de
 
 #german
 de:
-    kickmessage: 'Du wurdest aus dem Spiel gekickt, da der Server neu startet oder herunterfährt!'
+    yes: 'JA'
+    no: 'NEIN'
+    won: 'hat gewonnen'
+    generation: 'Welt wird generiert!'
+    generationfinished: 'Die Generation der neuen Welt wurde beendet!'
     #errors
+    kickmessage: 'Du wurdest aus dem Spiel gekickt, da der Server neu startet oder herunterfährt!'
     error: 'Fehler: '
     beaplayer: 'Du must ein Spieler sein um dies nutzen zu können'
     badcakecommand: '/cake duell [name] <---'
     isnotonline: 'ist nicht online!'
-    yourself: 'Du kannst mit dir selber kein Cake-duell machen!'
+    youcantplaywithyourself: 'Du kannst mit dir selber kein Cake-duell machen!'
     youhaveaopponent: 'Du hast schon einen Gegner!'
     toomany: 'Es spielen Momentan zu viele Cake-duell. Probiere es in kurzer Zeit noch einmal!'
     #invitements (@name is a variable)
