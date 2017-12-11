@@ -3,9 +3,7 @@ lang: de
 
 #german
 de:
-    yes: 'JA'
-    no: 'NEIN'
-    won: 'hat gewonnen'
+    won: 'hat gewonnen!'
     generation: 'Welt wird generiert!'
     generationfinished: 'Die Generation der neuen Welt wurde beendet!'
     #errors
@@ -22,3 +20,5 @@ de:
     invitementofaccept: 'Du hast die Cake-duell Einladung von @name akzeptiert!'
     invitementfordeny: 'Deine Cake-duell Einladung für @name wurde abgelehnt!'
     invitementofdeny: 'Du hast die Cake-duell Einladung von @name abgelehnt!'
+    invitementno: 'NEIN'
+    invitementyes: 'JA'
