@@ -32,6 +32,9 @@ public class cakeduell {
 	public static void start(Player player, String playerID, Player playerother, String playerotherID, int addition) {
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
+		FileConfiguration cfg4 = specialConfig.config("plugins//CakeGame//language.yml");
+		String lang = cfg4.getString("lang");
+		
 		int number = cfg2.getInt("Cakeduell.number") + 1;
 		cfg2.set("Cakeduell.number", number);
 		cfg2.set("Cakeduell." + number + ".end", "false");
@@ -50,11 +53,11 @@ public class cakeduell {
 			wc.environment(Environment.NORMAL);
 			wc.generateStructures(false);
 			wc.type(WorldType.FLAT);
-			player.sendMessage("§cWelt wird generiert!");
-			playerother.sendMessage("§cWelt wird generiert!");
+			player.sendMessage("§c"  + cfg4.getString(lang + ".generation"));
+			playerother.sendMessage("§c"  + cfg4.getString(lang + ".generation"));
 			wc.createWorld();
-			player.sendMessage("§cDie Generation der neuen Welt wurde beendet!");
-			playerother.sendMessage("§cDie Generation der neuen Welt wurde beendet!");
+			player.sendMessage("§c" + cfg4.getString(lang + ".generationfinished"));
+			playerother.sendMessage("§c" + cfg4.getString(lang + ".generationfinished"));
 		}
 		Bukkit.getWorld("cake-duell").setDifficulty(Difficulty.PEACEFUL);
 		Bukkit.getWorld("cake-duell").setTime(5000);
@@ -90,8 +93,8 @@ public class cakeduell {
 			public void run() {
 				FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 				FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
-				ingame(player, playerID, playerother, playerotherID, cfg2, addition, cfg, number);
-				ingame(playerother, playerotherID, player, playerID, cfg2, addition + 5, cfg, number);
+				ingame(player, playerID, playerother, playerotherID, cfg2, addition, cfg, number, lang, cfg4);
+				ingame(playerother, playerotherID, player, playerID, cfg2, addition + 5, cfg, number, lang, cfg4);
 				FileConfiguration cfg3 = specialConfig.config("plugins//CakeGame//player.yml");
 				FileConfiguration cfg4 = specialConfig.config("plugins//CakeGame//data.yml");
 				if (cfg4.getString("Cakeduell." + number + ".end").equals("true")) {
@@ -145,14 +148,14 @@ public class cakeduell {
 		specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 		
 	}
-	private static void ingame(Player player, String playerID, Player playerother, String playerotherID, FileConfiguration cfg2, int addition, FileConfiguration cfg, int number) {
+	private static void ingame(Player player, String playerID, Player playerother, String playerotherID, FileConfiguration cfg2, int addition, FileConfiguration cfg, int number,String lang, FileConfiguration cfg4) {
 		player.setFoodLevel(1);
 		
 		Location pl = player.getLocation();
 		pl.setY(pl.getY() - 1);
 		if (pl.getBlock().getType().equals(Material.SANDSTONE)) {
-			player.sendTitle(ChatColor.DARK_RED + playerother.getName(),ChatColor.RED + "hat gewonnen!", 20, 80, 20);
-			playerother.sendTitle(ChatColor.DARK_GREEN + playerother.getName(),ChatColor.GREEN + "hat gewonnen!", 20, 80, 20);
+			player.sendTitle(ChatColor.DARK_RED + playerother.getName(),ChatColor.RED + cfg4.getString(lang + ".won"), 20, 80, 20);
+			playerother.sendTitle(ChatColor.DARK_GREEN + playerother.getName(),ChatColor.GREEN + cfg4.getString(lang + ".won"), 20, 80, 20);
 			loop2[number].cancel();
 			cfg2.set("Cakeduell." + number + ".end", "true");
 			specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
@@ -161,16 +164,16 @@ public class cakeduell {
 		CakeLoc.setY(CakeLoc.getY() + 4);
 		CakeLoc.setZ(CakeLoc.getZ() + addition);
 		if (CakeLoc.getBlock().getType().equals(Material.AIR)) {
-			player.sendTitle(ChatColor.DARK_GREEN + player.getName(),ChatColor.GREEN + "hat gewonnen!", 20, 80, 20);
-			playerother.sendTitle(ChatColor.DARK_RED + player.getName(),ChatColor.RED + "hat gewonnen!", 20, 80, 20);
+			player.sendTitle(ChatColor.DARK_GREEN + player.getName(),ChatColor.GREEN + cfg4.getString(lang + ".won"), 20, 80, 20);
+			playerother.sendTitle(ChatColor.DARK_RED + player.getName(),ChatColor.RED + cfg4.getString(lang + ".won"), 20, 80, 20);
 			loop2[number].cancel();
 			cfg2.set("Cakeduell." + number + ".end", "true");
 			specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
 		}
 		if (!player.isOnline()) {
 			loop1[number].cancel();
-			player.sendTitle(ChatColor.DARK_RED + playerother.getName(),ChatColor.RED + "hat gewonnen!", 20, 80, 20);
-			playerother.sendTitle(ChatColor.DARK_GREEN + playerother.getName(),ChatColor.GREEN + "hat gewonnen!", 20, 80, 20);
+			player.sendTitle(ChatColor.DARK_RED + playerother.getName(),ChatColor.RED + cfg4.getString(lang + ".won"), 20, 80, 20);
+			playerother.sendTitle(ChatColor.DARK_GREEN + playerother.getName(),ChatColor.GREEN + cfg4.getString(lang + ".won"), 20, 80, 20);
 			loop2[number].cancel();
 			cfg2.set("Cakeduell." + number + ".end", "true");
 			specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");

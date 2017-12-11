@@ -1,0 +1,24 @@
+#used language
+lang: de
+
+#german
+de:
+    won: 'hat gewonnen!'
+    generation: 'Welt wird generiert!'
+    generationfinished: 'Die Generation der neuen Welt wurde beendet!'
+    #errors
+    kickmessage: 'Du wurdest aus dem Spiel gekickt, da der Server neu startet oder herunterfährt!'
+    error: 'Fehler: '
+    beaplayer: 'Du must ein Spieler sein um dies nutzen zu können'
+    badcakecommand: '/cake duell [name] <---'
+    isnotonline: 'ist nicht online!'
+    youcantplaywithyourself: 'Du kannst mit dir selber kein Cake-duell machen!'
+    youhaveaopponent: 'Du hast schon einen Gegner!'
+    toomany: 'Es spielen Momentan zu viele Cake-duell. Probiere es in kurzer Zeit noch einmal!'
+    #invitements (@name is a variable)
+    invitementforaccept: 'Deine Cake-duell Einladung für @name wurde akzeptiert!'
+    invitementofaccept: 'Du hast die Cake-duell Einladung von @name akzeptiert!'
+    invitementfordeny: 'Deine Cake-duell Einladung für @name wurde abgelehnt!'
+    invitementofdeny: 'Du hast die Cake-duell Einladung von @name abgelehnt!'
+    invitementno: 'NEIN'
+    invitementyes: 'JA'
