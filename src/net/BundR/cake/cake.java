@@ -13,7 +13,6 @@ import net.BundR.cake.event.player.PlayerDamage;
 import net.BundR.cake.event.player.PlayerEat;
 import net.BundR.cake.event.player.PlayerJoin;
 import net.BundR.cake.event.player.PlayerMove;
-import net.md_5.bungee.api.ChatColor;
 
 public class cake extends JavaPlugin {
 
@@ -39,8 +38,8 @@ public class cake extends JavaPlugin {
 	    	specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 			savePlayer.setOld(cfg, PlayerId, player);
 			savePlayer.setOld(cfg, PlayerId2, player2);
-			player.sendMessage(ChatColor.RED + cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
-			player2.sendMessage(ChatColor.RED + cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
+			player.sendMessage(cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
+			player2.sendMessage(cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
 		}
 	}
 

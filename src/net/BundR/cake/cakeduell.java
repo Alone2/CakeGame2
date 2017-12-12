@@ -53,11 +53,11 @@ public class cakeduell {
 			wc.environment(Environment.NORMAL);
 			wc.generateStructures(false);
 			wc.type(WorldType.FLAT);
-			player.sendMessage("§c"  + cfg4.getString(lang + ".generation"));
-			playerother.sendMessage("§c"  + cfg4.getString(lang + ".generation"));
+			player.sendMessage(cfg4.getString(lang + ".generation"));
+			playerother.sendMessage(cfg4.getString(lang + ".generation"));
 			wc.createWorld();
-			player.sendMessage("§c" + cfg4.getString(lang + ".generationfinished"));
-			playerother.sendMessage("§c" + cfg4.getString(lang + ".generationfinished"));
+			player.sendMessage(cfg4.getString(lang + ".generationfinished"));
+			playerother.sendMessage(cfg4.getString(lang + ".generationfinished"));
 		}
 		Bukkit.getWorld("cake-duell").setDifficulty(Difficulty.PEACEFUL);
 		Bukkit.getWorld("cake-duell").setTime(5000);
