@@ -2,6 +2,7 @@ package net.BundR.cake;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -16,13 +17,15 @@ public class savePlayer {
 		cfg.set("Player" + PlayerId + ".health", player.getHealth());
 		cfg.set("Player" + PlayerId + ".level", player.getLevel());
 		cfg.set("Player" + PlayerId + ".hunger", player.getFoodLevel());
+		cfg.set("Player" + PlayerId + ".saturation", player.getSaturation());
+		cfg.set("Player" + PlayerId + ".air", player.getRemainingAir());
 		cfg.set("Player" + PlayerId + ".gamemode", player.getGameMode().name());
 		cfg.set("Player" + PlayerId + ".location.X", player.getLocation().getX());
 		cfg.set("Player" + PlayerId + ".location.Y", player.getLocation().getY());
 		cfg.set("Player" + PlayerId + ".location.Z", player.getLocation().getZ());
 		cfg.set("Player" + PlayerId + ".location.Yaw", player.getLocation().getYaw());
 		cfg.set("Player" + PlayerId + ".location.Pitch", player.getLocation().getPitch());
-		
+
 		int zero = 0;
 		cfg.set("Player" + PlayerId + ".potion", null);
 		cfg.set("Player" + PlayerId + ".inventory", null);
@@ -49,7 +52,7 @@ public class savePlayer {
 		
 	}
 	public static void setOld(FileConfiguration cfg, String PlayerId, Player player) {
-		org.bukkit.Location yLoc = Bukkit.getWorld(cfg.getString("Player" + PlayerId + ".world")).getSpawnLocation();
+		Location yLoc = Bukkit.getWorld(cfg.getString("Player" + PlayerId + ".world")).getSpawnLocation();
 		yLoc.setX(cfg.getDouble("Player" + PlayerId + ".location.X"));
 		yLoc.setY(cfg.getDouble("Player" + PlayerId + ".location.Y"));
 		yLoc.setZ(cfg.getDouble("Player" + PlayerId + ".location.Z"));
@@ -58,6 +61,8 @@ public class savePlayer {
 		player.teleport(yLoc);
 		player.setHealth(cfg.getInt("Player" + PlayerId + ".health"));
 		player.setFoodLevel(cfg.getInt("Player" + PlayerId + ".hunger"));
+		player.setSaturation(cfg.getInt("Player" + PlayerId + ".saturation"));
+		player.setRemainingAir(cfg.getInt("Player" + PlayerId + ".air"));
 		player.setLevel(cfg.getInt("Player" + PlayerId + ".level"));
 		player.setGameMode(GameMode.valueOf(cfg.getString("Player" + PlayerId + ".gamemode")));
 		
