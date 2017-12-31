@@ -71,20 +71,19 @@ public class cake_c implements CommandExecutor {
 				if (args.length == 2 && args[0].equals("duell")) {
 					if (on == 1) {
 						
-						FileConfiguration cfg3 = specialConfig.config("plugins//CakeGame//player.yml");
-						if (cfg3.getString("Player" + PlayerId + ".g-teamm8").equals("0")) {
+						if (cfg.getString("Player" + PlayerId + ".g-teamm8").equals("0")) {
 							
 							for (int i = 0; i < Bukkit.getServer().getMaxPlayers(); i++) {
 								if (cfg2.getInt("loop." + i) == 0) {
 									cfg2.set("loop." + i, 1);
-									cfg3.set("Player" + PlayerId + ".loopID", i);
+									cfg.set("Player" + PlayerId + ".loopID", i);
 									specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
-									specialConfig.saveConfig(cfg3, "plugins//CakeGame//player.yml");
+									specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 									break;
 								}
 							}
 						} else {
-							loop[cfg3.getInt("Player" + PlayerId + ".loopID")].cancel();
+							loop[cfg.getInt("Player" + PlayerId + ".loopID")].cancel();
 						}
 						
 						Player playerother = player.getServer().getPlayer(args[1]);
