@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -47,6 +48,7 @@ public class savePlayer {
 		    cfg.set(start + ".amount", inv.getItem(i).getAmount());
 		    cfg.set(start + ".durability", inv.getItem(i).getDurability());
 		    cfg.set(start + ".type", String.valueOf(inv.getItem(i).getType()));
+		    cfg.set(start + ".meta", inv.getItem(i).getItemMeta());
 		}
 		specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 		
@@ -74,6 +76,8 @@ public class savePlayer {
 		    Short durability = Short.valueOf(cfg.getString("Player" + PlayerId + ".inventory." + i + ".durability"));
 		    Material type = Material.getMaterial(cfg.getString("Player" + PlayerId + ".inventory." + i + ".type"));
 		    ItemStack stack = new ItemStack(type, cfg.getInt("Player" + PlayerId + ".inventory." + i + ".amount"), durability);
+		    ItemMeta itemmeta  = (ItemMeta) cfg.get("Player" + PlayerId + ".inventory." + i + ".meta");
+		    stack.setItemMeta(itemmeta);
 		    inv.setItem(i, stack);
 		}
 		for (int zero=0; zero<30; zero++) {
