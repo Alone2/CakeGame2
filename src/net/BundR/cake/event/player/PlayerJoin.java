@@ -37,12 +37,12 @@ public class PlayerJoin implements Listener {
 			specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
 		} else {
 			String PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
+			cfg.set("Player" + PlayerId + ".name", String.valueOf(p.getName()));
 			if(cfg.getString("Player" + PlayerId + ".cake").equals("true")) {
-				cfg.set("Player" + PlayerId + ".noCake", "false");
 		    	cfg.set("Player" + PlayerId + ".noCake", "false");
-		    	specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 				savePlayer.setOld(cfg, PlayerId, p);
 			}
+			specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 		}
 	}
 }
