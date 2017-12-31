@@ -118,7 +118,7 @@ public class cakeduell {
 				}
 				
 			}
-		}, (1L), 1);
+		}, (1L), 5);
 				
 	}
 	private static void run(Player player, String playerID, FileConfiguration cfg, int addition) {
@@ -135,7 +135,7 @@ public class cakeduell {
 		buildcake.build(loc, height);
 		
 		Location loctp = Bukkit.getWorld("cake-duell").getSpawnLocation();
-		loctp.setY(loctp.getY() + height + 1);
+		loctp.setY(loctp.getY() + height + 0.5);
 		loctp.setX(loctp.getX() + 0.5);
 		loctp.setZ(loctp.getZ() + 0.5 + addition);
 		loctp.setPitch(90);

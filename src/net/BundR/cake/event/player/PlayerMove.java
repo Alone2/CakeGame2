@@ -15,9 +15,7 @@ public class PlayerMove implements Listener {
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 		String PlayerId = getPlayerConfigId.fromUUID(event.getPlayer().getUniqueId().toString());
 		if(cfg.getString("Player" + PlayerId + ".noCake").equals("true")) {
-
 			event.setCancelled(true);
-		
 		}
 		
 	}

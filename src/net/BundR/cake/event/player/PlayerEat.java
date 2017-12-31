@@ -13,12 +13,15 @@ public class PlayerEat implements Listener{
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
-		String PlayerId = getPlayerConfigId.fromUUID(event.getPlayer().getUniqueId().toString());
-		if(cfg.getString("Player" + PlayerId + ".noCake").equals("true")) {
+		if (event.getClickedBlock() != null) {
 			if (event.getClickedBlock().getType().equals(Material.CAKE_BLOCK)) {
-				event.setCancelled(true);
+				FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
+				String PlayerId = getPlayerConfigId.fromUUID(event.getPlayer().getUniqueId().toString());
+				if(cfg.getString("Player" + PlayerId + ".noCake").equals("true")) {
+					event.setCancelled(true);
+				}
 			}
 		}
+		
 	}
 }
