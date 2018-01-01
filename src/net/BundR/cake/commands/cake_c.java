@@ -87,7 +87,7 @@ public class cake_c implements CommandExecutor {
 						}
 						
 						Player playerother = player.getServer().getPlayer(args[1]);
-						String[] Invitementsender = cfg4.getString(lang + ".invitementsender").split("@player"), Invitementreciver = cfg4.getString(lang + ".invitementreciver").split("@player");;
+						String[] Invitementsender = cfg4.getString(lang + ".invitementsender").split("%player%"), Invitementreciver = cfg4.getString(lang + ".invitementreciver").split("%player%");;
 						playerother.sendMessage(Invitementreciver[0] + player.getName() +Invitementreciver[1]);
 						player.sendMessage(Invitementsender[0] + playerother.getName() + Invitementsender[1]);
 
@@ -123,7 +123,7 @@ public class cake_c implements CommandExecutor {
 					} else if (on == 2) {
 						player.sendMessage(cfg4.getString(lang + ".error") + cfg4.getString(lang + ".youcantplaywithyourself"));
 					} else {
-						String[] isnotonline = cfg4.getString(lang + ".isnotonline").split("@player");
+						String[] isnotonline = cfg4.getString(lang + ".isnotonline").split("%player%");
 						player.sendMessage(cfg4.getString(lang + ".error") + isnotonline[0] + args[1] + isnotonline[1]);
 					}
 
@@ -135,7 +135,7 @@ public class cake_c implements CommandExecutor {
 						String PlayerId2 = getPlayerConfigId.fromUUID(String.valueOf(playerother.getUniqueId()));
 						if (cfg.getString("Player" + PlayerId2 + ".g-teamm8").equals(player.getName())) {
 							
-							String[] Invitementfor = cfg4.getString(lang + ".invitementforaccept").split("@player"), Invitementof = cfg4.getString(lang + ".invitementofaccept").split("@player");
+							String[] Invitementfor = cfg4.getString(lang + ".invitementforaccept").split("%player%"), Invitementof = cfg4.getString(lang + ".invitementofaccept").split("%player%");
 							int addition = (cfg2.getInt("Cakeduell.number") + 1)*100;
 							playerother.sendMessage(Invitementfor[0] + player.getName() + Invitementfor[1]);
 							player.sendMessage(Invitementof[0] + playerother.getName() + Invitementof[1]);
@@ -146,7 +146,7 @@ public class cake_c implements CommandExecutor {
 							
 							cakeduell.start(player,PlayerId, playerother, PlayerId2, addition);
 						} else {
-							String[] Invitementexpired = cfg4.getString(lang + ".invitementexpired").split("@player");
+							String[] Invitementexpired = cfg4.getString(lang + ".invitementexpired").split("%player%");
 							player.sendMessage(Invitementexpired[0] + args[1] + Invitementexpired[1]);
 						}
 					}
@@ -154,7 +154,7 @@ public class cake_c implements CommandExecutor {
 
 					if (on == 1) {
 						Player playerother = player.getServer().getPlayer(args[1]);
-						String[] Invitementfor = cfg4.getString(lang + ".invitementfordeny").split("@player"), Invitementof = cfg4.getString(lang + ".invitementofdeny").split("@player");
+						String[] Invitementfor = cfg4.getString(lang + ".invitementfordeny").split("%player%"), Invitementof = cfg4.getString(lang + ".invitementofdeny").split("%player%");
 						playerother.sendMessage(Invitementfor[0] + player.getName() + Invitementfor[1]);
 						player.sendMessage(Invitementof[0] + playerother.getName() + Invitementof[1]);
 					}
