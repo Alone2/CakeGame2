@@ -77,6 +77,12 @@ public class cake extends JavaPlugin {
             specialf2.getParentFile().mkdirs();
             saveResource("language.yml", false);
         }
+        FileConfiguration cfg3 = specialConfig.config("plugins//CakeGame//language.yml");
+        if (cfg3.getDouble("ver") < 1.0) {
+        	specialConfig.saveConfig(cfg3, "plugins//CakeGame//language_old.yml");
+        	specialf2.getParentFile().mkdirs();
+            saveResource("language.yml", true);
+        }
         
         FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
         FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");

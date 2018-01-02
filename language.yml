@@ -6,6 +6,7 @@ de:
     won: 'hat gewonnen!'
     generation: '§cWelt wird generiert!'
     generationfinished: '§cDie Generation der neuen Welt wurde beendet!'
+    seconds: 'sekunden'
     #errors
     error: '§cFehler: '
     kickmessage: '§cDu wurdest aus dem Spiel gekickt, da der Server neu startet oder herunterfährt!'
@@ -24,4 +25,7 @@ de:
     invitementreciver: '§3%player%§a hat dich zu einem Cake-duell eingeladen! Hilfst du mit?'
     invitementsender: '§aDu hast §3%player%§a zu einem Cake-duell eingeladen!'
     invitementno: 'NEIN'
-    invitementyes: 'JA'
+    invitementyes: 'JA'    
+
+#version number of this file  | please do not change!
+ver: 1.0
