@@ -13,6 +13,7 @@ import net.BundR.cake.event.player.PlayerDamage;
 import net.BundR.cake.event.player.PlayerEat;
 import net.BundR.cake.event.player.PlayerJoin;
 import net.BundR.cake.event.player.PlayerMove;
+import net.BundR.cake.ingame.startCake;
 
 public class cake extends JavaPlugin {
 
@@ -21,6 +22,7 @@ public class cake extends JavaPlugin {
 		registerEvents();
 		registerConfig();
 		new cakeduell(this);
+		new startCake(this);
 	}
 
 	public void onDisable() {
@@ -28,18 +30,18 @@ public class cake extends JavaPlugin {
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 
-		for (int i = 0; i < cfg2.getInt("Cakeduell.number"); i++) {
-			Player player = Bukkit.getPlayer(cfg2.getString("Cakeduell." + Integer.valueOf(i+1) + ".player.1.name"));
-			Player player2 = Bukkit.getPlayer(cfg2.getString("Cakeduell." + Integer.valueOf(i+1) + ".player.2.name"));
-			String PlayerId = cfg2.getString("Cakeduell." + Integer.valueOf(i+1) + ".player.1.PlayerId");
-			String PlayerId2 = cfg2.getString("Cakeduell." + Integer.valueOf(i+1) + ".player.2.PlayerId");
-			cfg.set("Player" + PlayerId + ".noCake", "false");
-	    	cfg.set("Player" + PlayerId2 + ".noCake", "false");
-	    	specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
-			savePlayer.setOld(cfg, PlayerId, player);
-			savePlayer.setOld(cfg, PlayerId2, player2);
-			player.sendMessage(cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
-			player2.sendMessage(cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
+		for (int i = 0; i < this.getConfig().getInt("Cakduellrunden"); i++) {
+			if (cfg2.getInt("Cakeduell.number." + i) == 1) {
+				for(int z = 0; z < cfg2.getInt("Cakeduell." + Integer.valueOf(i) + ".wieviele"); z++) {
+					int x = z + 1;
+					Player player = Bukkit.getPlayer(cfg2.getString("Cakeduell." + Integer.valueOf(i) + ".player." + x + ".name"));
+					String PlayerId = cfg2.getString("Cakeduell." + Integer.valueOf(i) + ".player." + x + ".PlayerId");
+					cfg.set("Player" + PlayerId + ".noCake", "false");
+					specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
+					savePlayer.setOld(cfg, PlayerId, player);
+					player.sendMessage(cfg3.getString(cfg3.getString("lang") + ".kickmessage"));
+				}
+			}
 		}
 	}
 
@@ -85,8 +87,11 @@ public class cake extends JavaPlugin {
         for (int i = 0; i < cfg2.getInt("WieViele"); i++) {
         	cfg.set("Player" + Integer.valueOf(i + 1) + ".g-teamm8", "0");
         }
+        for (int i = 0; i < this.getConfig().getInt("Cakduellrunden"); i++) {
+			cfg2.set("Cakeduell.number." + i, 0);		
+		}
         
-		cfg2.set("Cakeduell.number", 0);
+		//cfg2.set("Cakeduell.number", 0);
 		specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml"); 
 		specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml"); 
 		

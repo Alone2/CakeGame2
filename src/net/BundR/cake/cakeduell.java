@@ -10,6 +10,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -29,15 +30,17 @@ public class cakeduell {
 	final static BukkitTask[] loop1 = new BukkitTask[config.getInt("Cakduellrunden") + 1];
 	final static BukkitTask[] loop2 = new BukkitTask[config.getInt("Cakduellrunden") + 1];
 	
-	public static void start(Player player, String playerID, Player playerother, String playerotherID, int addition) {
+	public static void start(Player player, String playerID, Player playerother, String playerotherID, int number) {
 		FileConfiguration cfg = specialConfig.config("plugins//CakeGame//player.yml");
 		FileConfiguration cfg2 = specialConfig.config("plugins//CakeGame//data.yml");
 		FileConfiguration cfg4 = specialConfig.config("plugins//CakeGame//language.yml");
 		String lang = cfg4.getString("lang");
 		
-		int number = cfg2.getInt("Cakeduell.number") + 1;
+		int addition = (number + 1) * 100;
+		
 		cfg2.set("Cakeduell.number", number);
 		cfg2.set("Cakeduell." + number + ".end", "false");
+		cfg2.set("Cakeduell." + number + ".wieviele", 2);
 		cfg2.set("Cakeduell." + number + ".player.1.name", player.getName());
 		cfg2.set("Cakeduell." + number + ".player.1.PlayerId", playerID);
 		cfg2.set("Cakeduell." + number + ".player.2.name", playerother.getName());
@@ -64,6 +67,13 @@ public class cakeduell {
 		
 		run(player, playerID, cfg, addition);
 		run(playerother, playerotherID, cfg, addition + 5);
+		
+		for (int i = 0; i < Bukkit.getWorld("cake-duell").getEntities().size(); i++) {
+			if (Bukkit.getWorld("cake-duell").getEntities().get(i).getType().equals(EntityType.DROPPED_ITEM)) {
+				Bukkit.getWorld("cake-duell").getEntities().get(i).remove();
+			}
+		}
+		
 		loop1[number] = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 			@Override
 			public void run() {

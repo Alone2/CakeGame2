@@ -13,6 +13,7 @@ import net.BundR.cake.cake;
 import net.BundR.cake.cakeduell;
 import net.BundR.cake.getPlayerConfigId;
 import net.BundR.cake.specialConfig;
+import net.BundR.cake.ingame.startCake;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
@@ -136,7 +137,6 @@ public class cake_c implements CommandExecutor {
 						if (cfg.getString("Player" + PlayerId2 + ".g-teamm8").equals(player.getName())) {
 							
 							String[] Invitementfor = cfg4.getString(lang + ".invitementforaccept").split("%player%"), Invitementof = cfg4.getString(lang + ".invitementofaccept").split("%player%");
-							int addition = (cfg2.getInt("Cakeduell.number") + 1)*100;
 							playerother.sendMessage(Invitementfor[0] + player.getName() + Invitementfor[1]);
 							player.sendMessage(Invitementof[0] + playerother.getName() + Invitementof[1]);
 
@@ -144,14 +144,25 @@ public class cake_c implements CommandExecutor {
 							cfg.set("Player" + PlayerId2 + ".teamm8", PlayerId);
 							specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
 							
-							cakeduell.start(player,PlayerId, playerother, PlayerId2, addition);
+							int number = 0;
+							for (int i = 0; i < plugin.getConfig().getInt("Cakduellrunden"); i++) {
+								if (cfg2.getInt("Cakeduell.number." + i) == 0) {
+									number = i;
+									cfg2.set("Cakeduell.number." + i, 1);
+									cfg.set("Player" + PlayerId + ".loopID", i);
+									specialConfig.saveConfig(cfg2, "plugins//CakeGame//data.yml");
+									specialConfig.saveConfig(cfg, "plugins//CakeGame//player.yml");
+									break;
+								}
+							}
+							cakeduell.start(player,PlayerId, playerother, PlayerId2, number);
 						} else {
 							String[] Invitementexpired = cfg4.getString(lang + ".invitementexpired").split("%player%");
 							player.sendMessage(Invitementexpired[0] + args[1] + Invitementexpired[1]);
 						}
 					}
 				} else if (args.length == 2 && args[0].equals("deny")) {
-
+					
 					if (on == 1) {
 						Player playerother = player.getServer().getPlayer(args[1]);
 						String[] Invitementfor = cfg4.getString(lang + ".invitementfordeny").split("%player%"), Invitementof = cfg4.getString(lang + ".invitementofdeny").split("%player%");
